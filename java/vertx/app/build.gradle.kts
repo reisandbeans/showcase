@@ -28,6 +28,7 @@ dependencies {
     implementation(Dependencies.vertxCore)
     implementation(Dependencies.vertxRxJava)
     implementation(Dependencies.vertxWeb)
+    implementation(project(":lib"))
     testImplementation(TestDependencies.mockitoCore)
     testImplementation(TestDependencies.mockitoJunit)
     testImplementation(TestDependencies.vertxJunit)

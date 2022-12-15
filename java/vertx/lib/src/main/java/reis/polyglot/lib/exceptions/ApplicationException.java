@@ -28,6 +28,10 @@ public class ApplicationException extends RuntimeException {
         return error;
     }
 
+    public static ApplicationException fromThrowable(Throwable json) {
+        return new ApplicationException(500, ErrorName.UNEXPECTED_ERROR, "An unexpected error has happened");
+    }
+
     public int getStatusCode() {
         return statusCode;
     }
@@ -66,7 +70,9 @@ public class ApplicationException extends RuntimeException {
 
     private JsonArray getErrorDetailsArray() {
         JsonArray details = new JsonArray();
-        detailList.forEach(errorDetail -> details.add(errorDetail.toJson()));
+        if (detailList != null) {
+            detailList.forEach(errorDetail -> details.add(errorDetail.toJson()));
+        }
         return details;
     }
 }

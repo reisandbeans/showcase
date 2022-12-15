@@ -1,27 +1,25 @@
 package reis.polyglot.lib.apiResponses;
 
-import reis.polyglot.lib.exceptions.ApplicationException;
+import io.vertx.core.json.JsonObject;
 
-public abstract class ApiResponse<T extends JsonSerializable> {
-    boolean success;
+public abstract class ApiResponse {
+    protected boolean success;
+    protected int statusCode;
 
-    int statusCode;
-
-    T data;
-
-    ApplicationException error;
-
-    public ApiResponse(int statusCode, T data) {
-        this.data = data;
-        this.error = null;
+    public ApiResponse(int statusCode, boolean success) {
         this.statusCode = statusCode;
-        this.success = true;
+        this.success = success;
     }
 
-    public ApiResponse(int statusCode, ApplicationException error) {
-        this.data = null;
-        this.error = error;
-        this.statusCode = statusCode;
-        this.success = false;
+    public JsonObject toJson() {
+        return new JsonObject().put("success", this.success);
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public int getStatusCode() {
+        return statusCode;
     }
 }
