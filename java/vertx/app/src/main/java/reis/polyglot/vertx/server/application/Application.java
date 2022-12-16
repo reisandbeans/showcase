@@ -1,4 +1,4 @@
-package reis.polyglot.vertx.server;
+package reis.polyglot.vertx.server.application;
 
 import io.vertx.rxjava3.core.Vertx;
 import io.vertx.rxjava3.ext.web.Router;
@@ -30,7 +30,7 @@ public class Application {
 
         this.apiRoutes.mount(apiRouter);
 
-        mainRouter.route("/api/*").subRouter(apiRouter);
+        mainRouter.route("/api/v1/*").subRouter(apiRouter);
         mainRouter.route("/*").handler(staticHandler);
         mainRouter.get().handler(routingContext -> routingContext.response().sendFile("assets/index.html"));
 

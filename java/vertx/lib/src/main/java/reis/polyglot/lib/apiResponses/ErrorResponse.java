@@ -17,7 +17,7 @@ public class ErrorResponse extends ApiResponse {
     }
 
     public static ErrorResponse notFound() {
-        return ErrorResponse.fromException(ApplicationExceptionFactory.NotFound());
+        return ErrorResponse.fromException(ApplicationExceptionFactory.notFound());
     }
 
     @Override

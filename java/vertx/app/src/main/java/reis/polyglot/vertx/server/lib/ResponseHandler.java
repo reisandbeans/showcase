@@ -1,4 +1,4 @@
-package reis.polyglot.vertx.server;
+package reis.polyglot.vertx.server.lib;
 
 import io.vertx.core.json.Json;
 import io.vertx.rxjava3.ext.web.RoutingContext;

@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation(Dependencies.vertxCore)
+    implementation(Dependencies.vertxJsonSchema)
     implementation(platform(Dependencies.vertxDepChain))
     testImplementation(TestDependencies.mockitoCore)
     testImplementation(TestDependencies.mockitoJunit)

@@ -28,7 +28,10 @@ public class ApplicationException extends RuntimeException {
         return error;
     }
 
-    public static ApplicationException fromThrowable(Throwable json) {
+    public static ApplicationException fromThrowable(Throwable error) {
+        if (error instanceof ApplicationException) {
+            return (ApplicationException) error;
+        }
         return new ApplicationException(500, ErrorName.UNEXPECTED_ERROR, "An unexpected error has happened");
     }
 

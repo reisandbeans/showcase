@@ -6,6 +6,7 @@ import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.rxjava3.core.Vertx;
+import reis.polyglot.vertx.server.application.Application;
 
 public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
@@ -33,8 +34,8 @@ public class HttpServer {
             .ignoreElement();
     }
 
-    public void stop() {
+    public Completable stop() {
         logger.info("Closing Http Server");
-        this.server.close();
+        return this.server.close();
     }
 }

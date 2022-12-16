@@ -1,15 +1,11 @@
-package reis.polyglot.vertx.server.resources.user;
+package reis.polyglot.vertx.server.resources.healthCheck;
 
-import com.google.inject.Inject;
 import io.vertx.rxjava3.ext.web.RoutingContext;
 import reis.polyglot.lib.apiResponses.SuccessResponse;
 import reis.polyglot.vertx.server.lib.ResponseHandler;
 
-public class UserController {
-    @Inject
-    public UserController() {}
-
-    public void login(RoutingContext context) {
+public class HealthCheckController {
+    public void ping(RoutingContext context) {
         ResponseHandler.send(context, SuccessResponse.empty());
     }
 }

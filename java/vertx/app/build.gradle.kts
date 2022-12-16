@@ -22,6 +22,7 @@ application {
 
 dependencies {
     implementation(Dependencies.logback)
+    implementation(Dependencies.guava)
     implementation(Dependencies.guice)
     implementation(platform(Dependencies.vertxDepChain))
     implementation(Dependencies.vertxConfig)
