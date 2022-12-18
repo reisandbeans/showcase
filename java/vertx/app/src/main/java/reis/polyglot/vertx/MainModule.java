@@ -6,6 +6,7 @@ import io.vertx.rxjava3.core.Vertx;
 import reis.polyglot.vertx.server.application.ApiRoutes;
 import reis.polyglot.vertx.server.application.Application;
 import reis.polyglot.vertx.server.HttpServer;
+import reis.polyglot.vertx.server.config.ServerConfig;
 import reis.polyglot.vertx.server.resources.healthCheck.HealthCheckController;
 import reis.polyglot.vertx.server.resources.healthCheck.HealthCheckRouter;
 import reis.polyglot.vertx.server.resources.user.UserController;
@@ -13,14 +14,18 @@ import reis.polyglot.vertx.server.resources.user.UserRouter;
 
 public class MainModule extends AbstractModule {
     private final Vertx vertx;
+    private final ServerConfig config;
 
-    public MainModule(Vertx vertx) {
+    public MainModule(Vertx vertx, ServerConfig config) {
+        this.config = config;
         this.vertx = vertx;
     }
 
     @Override
     protected void configure() {
         bind(Vertx.class).toInstance(this.vertx);
+
+        bind(ServerConfig.class).toInstance(this.config);
 
         bind(HttpServer.class).in(Singleton.class);
         bind(Application.class).in(Singleton.class);
