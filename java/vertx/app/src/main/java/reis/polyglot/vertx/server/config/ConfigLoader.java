@@ -7,6 +7,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.rxjava3.config.ConfigRetriever;
 import io.vertx.rxjava3.core.Vertx;
 
+import java.nio.file.NoSuchFileException;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,8 +19,8 @@ public class ConfigLoader {
         { "HTTP_SERVER_PORT", HTTP_SERVER_PORT },
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
-    private static Map<String, String> propertiesNameMap = Stream.of(new String[][] {
-        { "httpServer.port", HTTP_SERVER_PORT },
+    private static Map<String, String> sysPropertiesNameMap = Stream.of(new String[][] {
+        { HTTP_SERVER_PORT, HTTP_SERVER_PORT },
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
     private static final JsonObject defaultConfigs = new JsonObject()
@@ -34,28 +35,11 @@ public class ConfigLoader {
     private static Single<JsonObject> buildOptions(Vertx vertx) {
         return Single.zip(
             loadEnvVars(vertx),
-            loadPropertiesFile(vertx),
             loadSysVars(vertx),
-            (envVars, properties, sysVars) -> defaultConfigs
+            (envVars, sysVars) -> defaultConfigs
                 .mergeIn(envVars, true)
-                .mergeIn(properties, true)
                 .mergeIn(sysVars, true)
         );
-    }
-
-    private static Single<JsonObject> loadPropertiesFile(Vertx vertx) {
-        ConfigStoreOptions store = new ConfigStoreOptions()
-            .setType("file")
-            .setFormat("properties")
-            .setOptional(true)
-            .setConfig(new JsonObject()
-                .put("path", "config.properties")
-                .put("raw-data", true)
-            );
-        ConfigRetrieverOptions options = new ConfigRetrieverOptions().addStore(store);
-        return ConfigRetriever.create(vertx, options)
-            .setConfigurationProcessor(source -> mapProperties(propertiesNameMap, source))
-            .rxGetConfig();
     }
 
     private static Single<JsonObject> loadEnvVars(Vertx vertx) {
@@ -75,13 +59,18 @@ public class ConfigLoader {
             .setOptional(true)
             .setConfig(new JsonObject().put("raw-data", true));
         ConfigRetrieverOptions options = new ConfigRetrieverOptions().addStore(store);
-        return ConfigRetriever.create(vertx, options).rxGetConfig();
+        return ConfigRetriever.create(vertx, options)
+            .setConfigurationProcessor(source -> mapProperties(sysPropertiesNameMap, source))
+            .rxGetConfig();
     }
 
     private static JsonObject mapProperties(Map<String, String> mapper, JsonObject source) {
         JsonObject result = new JsonObject();
         for (Map.Entry<String, String> entry : mapper.entrySet()) {
-            result.put(entry.getValue(), source.getString(entry.getKey()));
+            String value = source.getString(entry.getKey());
+            if (value != null) {
+                result.put(entry.getValue(), value);
+            }
         }
         return result;
     }

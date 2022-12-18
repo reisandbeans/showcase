@@ -7,17 +7,20 @@ import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.rxjava3.core.Vertx;
 import reis.polyglot.vertx.server.application.Application;
+import reis.polyglot.vertx.server.config.ServerConfig;
 
 public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private io.vertx.rxjava3.core.http.HttpServer server;
     private final Application application;
+    private final int port;
     private final Vertx vertx;
 
     @Inject
-    public HttpServer(Vertx vertx, Application application) {
+    public HttpServer(Vertx vertx, Application application, ServerConfig config) {
         this.vertx = vertx;
+        this.port = config.getHttpServerPort();
         this.application = application;
     }
 
@@ -27,15 +30,15 @@ public class HttpServer {
 
         return this.server
             .requestHandler(application.create())
-            .rxListen(8080)
+            .rxListen(port)
             .doOnSuccess((res) -> {
-                logger.info("Server listening on port 8080");
+                logger.info("Server listening on port " + port);
             })
             .ignoreElement();
     }
 
     public Completable stop() {
-        logger.info("Closing Http Server");
-        return this.server.close();
+        logger.info("Stopping http server...");
+        return this.server.close().doOnComplete(() -> logger.info("Server successfully stopped"));
     }
 }
