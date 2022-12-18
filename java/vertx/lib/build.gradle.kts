@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    implementation(Dependencies.logback)
     implementation(Dependencies.vertxCore)
     implementation(Dependencies.vertxJsonSchema)
     implementation(platform(Dependencies.vertxDepChain))

@@ -3,9 +3,9 @@ package reis.polyglot.vertx.server;
 import com.google.inject.Inject;
 import io.reactivex.rxjava3.core.Completable;
 import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.impl.logging.Logger;
-import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.rxjava3.core.Vertx;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reis.polyglot.vertx.server.application.Application;
 import reis.polyglot.vertx.server.config.ServerConfig;
 
@@ -32,7 +32,7 @@ public class HttpServer {
             .requestHandler(application.create())
             .rxListen(port)
             .doOnSuccess((res) -> {
-                logger.info("Server listening on port " + port);
+                logger.info("Server listening on port {}", port);
             })
             .ignoreElement();
     }

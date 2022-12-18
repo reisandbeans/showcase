@@ -15,11 +15,11 @@ import java.util.stream.Stream;
 import static reis.polyglot.vertx.server.config.ServerConfig.HTTP_SERVER_PORT;
 
 public class ConfigLoader {
-    private static Map<String, String> envVarsNameMap = Stream.of(new String[][] {
+    private static final Map<String, String> envVarsNameMap = Stream.of(new String[][] {
         { "HTTP_SERVER_PORT", HTTP_SERVER_PORT },
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 
-    private static Map<String, String> sysPropertiesNameMap = Stream.of(new String[][] {
+    private static final Map<String, String> sysPropertiesNameMap = Stream.of(new String[][] {
         { HTTP_SERVER_PORT, HTTP_SERVER_PORT },
     }).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 

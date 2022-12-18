@@ -12,7 +12,7 @@ object Dependencies {
 }
 
 object TestDependencies {
-    val junitJupiter = "org.junit.jupiter:junit-jupiter:5.9.1"
+    val junitJupiter = "org.junit.jupiter:junit-jupiter:${Versions.junit}"
     val mockitoCore = "org.mockito:mockito-core:${Versions.mockito}"
     val mockitoJunit = "org.mockito:mockito-junit-jupiter:${Versions.mockito}"
     val vertxJunit = "io.vertx:vertx-junit5"

@@ -3,9 +3,9 @@ package reis.polyglot.vertx;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.reactivex.rxjava3.core.Completable;
-import io.vertx.core.impl.logging.Logger;
-import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.rxjava3.core.AbstractVerticle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import reis.polyglot.vertx.server.HttpServer;
 import reis.polyglot.vertx.server.config.ConfigLoader;
 
