@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import io.vertx.rxjava3.ext.web.Router;
 import reis.polyglot.lib.apiResponses.ErrorResponse;
 import reis.polyglot.vertx.server.lib.ResponseHandler;
-import reis.polyglot.vertx.server.resources.healthCheck.HealthCheckRouter;
+import reis.polyglot.vertx.server.resources.healthcheck.HealthCheckRouter;
 import reis.polyglot.vertx.server.resources.user.UserRouter;
 
 public class ApiRoutes {

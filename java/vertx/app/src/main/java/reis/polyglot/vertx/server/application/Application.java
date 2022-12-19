@@ -4,7 +4,6 @@ import io.vertx.rxjava3.core.Vertx;
 import io.vertx.rxjava3.ext.web.Router;
 import io.vertx.rxjava3.ext.web.handler.BodyHandler;
 import io.vertx.rxjava3.ext.web.handler.StaticHandler;
-
 import javax.inject.Inject;
 
 public class Application {
@@ -21,15 +20,15 @@ public class Application {
 
     public Router create() {
         ApiErrorHandler errorHandler = new ApiErrorHandler();
-        StaticHandler staticHandler = StaticHandler.create(Application.assetsPath);
 
-        Router mainRouter = Router.router(vertx);
         Router apiRouter = Router.router(vertx);
         apiRouter.route().handler(BodyHandler.create());
         apiRouter.route().failureHandler(errorHandler::handleError);
 
         this.apiRoutes.mount(apiRouter);
 
+        StaticHandler staticHandler = StaticHandler.create(Application.assetsPath);
+        Router mainRouter = Router.router(vertx);
         mainRouter.route("/api/v1/*").subRouter(apiRouter);
         mainRouter.route("/*").handler(staticHandler);
         mainRouter.get().handler(routingContext -> routingContext.response().sendFile("assets/index.html"));

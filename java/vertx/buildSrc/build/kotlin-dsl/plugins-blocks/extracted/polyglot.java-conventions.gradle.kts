@@ -1,7 +1,0 @@
-                                                        
-
-plugins {
-    java
-    jacoco
-    checkstyle
-}

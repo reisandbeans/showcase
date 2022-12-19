@@ -2,7 +2,6 @@ package reis.polyglot.vertx.server.lib;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
-
 import java.util.Arrays;
 
 public class RequestSchemaFactory {
@@ -55,7 +54,11 @@ public class RequestSchemaFactory {
         return createRequestSchema(paramsSchema, defaultSchema, defaultSchema);
     }
 
-    public static JsonObject createRequestSchema(JsonObject paramsSchema, JsonObject bodySchema, JsonObject querySchema) {
+    public static JsonObject createRequestSchema(
+        JsonObject paramsSchema,
+        JsonObject bodySchema,
+        JsonObject querySchema
+    ) {
         JsonObject mergedQuerySchema = new JsonObject().mergeIn(defaultQuerySchema).mergeIn(querySchema, true);
         return new JsonObject()
             .put("type", "object")

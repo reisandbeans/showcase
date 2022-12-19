@@ -4,10 +4,9 @@ import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
 import io.vertx.rxjava3.core.MultiMap;
 import io.vertx.rxjava3.ext.web.RoutingContext;
+import java.util.Map;
 import reis.polyglot.lib.exceptions.ApplicationException;
 import reis.polyglot.lib.validation.JsonValidator;
-
-import java.util.Map;
 
 public class RequestValidator implements Handler<RoutingContext> {
     private static final JsonValidator validator = new JsonValidator();

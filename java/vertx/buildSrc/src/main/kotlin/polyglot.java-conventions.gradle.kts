@@ -11,6 +11,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+checkstyle {
+    configFile = file("${project.rootDir}/checkstyle.xml")
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
     finalizedBy(tasks.named("jacocoTestReport"))

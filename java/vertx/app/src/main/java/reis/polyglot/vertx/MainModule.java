@@ -3,12 +3,12 @@ package reis.polyglot.vertx;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import io.vertx.rxjava3.core.Vertx;
+import reis.polyglot.vertx.server.HttpServer;
 import reis.polyglot.vertx.server.application.ApiRoutes;
 import reis.polyglot.vertx.server.application.Application;
-import reis.polyglot.vertx.server.HttpServer;
 import reis.polyglot.vertx.server.config.ServerConfig;
-import reis.polyglot.vertx.server.resources.healthCheck.HealthCheckController;
-import reis.polyglot.vertx.server.resources.healthCheck.HealthCheckRouter;
+import reis.polyglot.vertx.server.resources.healthcheck.HealthCheckController;
+import reis.polyglot.vertx.server.resources.healthcheck.HealthCheckRouter;
 import reis.polyglot.vertx.server.resources.user.UserController;
 import reis.polyglot.vertx.server.resources.user.UserRouter;
 

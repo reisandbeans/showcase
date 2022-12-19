@@ -1,3 +1,6 @@
+# Compiled class file
+*.class
+
 ### Vert.x ###
 .vertx/
 
@@ -156,6 +159,8 @@ buildNumber.properties
 ### Gradle ###
 .gradle
 /buildTool/
+**/build/
+!src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting

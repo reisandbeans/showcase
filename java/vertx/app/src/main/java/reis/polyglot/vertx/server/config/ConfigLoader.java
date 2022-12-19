@@ -1,18 +1,17 @@
 package reis.polyglot.vertx.server.config;
 
+import static reis.polyglot.vertx.server.config.ServerConfig.HTTP_SERVER_PORT;
+
 import io.reactivex.rxjava3.core.Single;
 import io.vertx.config.ConfigRetrieverOptions;
 import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.json.JsonObject;
 import io.vertx.rxjava3.config.ConfigRetriever;
 import io.vertx.rxjava3.core.Vertx;
-
-import java.nio.file.NoSuchFileException;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static reis.polyglot.vertx.server.config.ServerConfig.HTTP_SERVER_PORT;
 
 public class ConfigLoader {
     private static final Map<String, String> envVarsNameMap = Stream.of(new String[][] {
