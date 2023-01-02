@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 public class ConfigLoader {
     private static final Map<String, String> envVarsNameMap = Stream.of(new String[][] {
         { "HTTP_SERVER_PORT", HTTP_SERVER_PORT },
@@ -24,8 +23,6 @@ public class ConfigLoader {
 
     private static final JsonObject defaultConfigs = new JsonObject()
         .put(HTTP_SERVER_PORT, "8080");
-
-    private ConfigLoader() {}
 
     public static Single<ServerConfig> loadConfig(Vertx vertx) {
         return buildOptions(vertx).map(ServerConfig::new);

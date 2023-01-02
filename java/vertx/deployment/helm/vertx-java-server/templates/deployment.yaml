@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: {{ .Values.app.name }}-deployment
+    labels:
+        app: {{ .Values.app.name }}
+spec:
+    replicas: {{ .Values.replicaCount }}
+    selector:
+        matchLabels:
+            app: {{ .Values.app.name }}
+    template:
+        metadata:
+            labels:
+                app: {{ .Values.app.name }}
+        spec:
+            containers:
+                - name: {{ .Values.app.name }}
+                  image:  "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+                  envFrom:
+                      - configMapRef:
+                            name: {{ .Values.app.name }}-configmap
+                      - secretRef:
+                            name: {{ .Values.app.name }}-secrets
+                  imagePullPolicy: Never
+                  ports:
+                      - containerPort: {{ .Values.service.targetPort }}
+                  env:
+                      - name: POD_NAME
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: metadata.name
+                  livenessProbe:
+                      httpGet:
+                          port: {{ .Values.service.targetPort }}
+                          path: /api/v1/healthcheck/ping
+                      initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+                      periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+                      failureThreshold: {{ .Values.readinessProbe.failureThreshold }}

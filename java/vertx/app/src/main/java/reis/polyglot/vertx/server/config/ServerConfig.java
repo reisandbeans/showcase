@@ -7,7 +7,7 @@ public class ServerConfig {
 
     private int httpServerPort;
 
-    ServerConfig(JsonObject config) {
+    public ServerConfig(JsonObject config) {
         this.parseConfig(config);
     }
 

@@ -16,6 +16,7 @@ public class MainVerticle extends AbstractVerticle {
     @Override
     public Completable rxStart() {
         logger.info("Starting main verticle...");
+
         return ConfigLoader.loadConfig(vertx)
             .flatMapCompletable(config -> {
                 injector = Guice.createInjector(new MainModule(vertx, config));
@@ -29,7 +30,6 @@ public class MainVerticle extends AbstractVerticle {
     public Completable rxStop() {
         logger.info("Stopping main verticle...");
         HttpServer server = injector.getInstance(HttpServer.class);
-        return server.stop()
-            .doOnComplete(() -> logger.info("Main verticle successfully stopped"));
+        return server.stop().doOnComplete(() -> logger.info("Main verticle successfully stopped"));
     }
 }

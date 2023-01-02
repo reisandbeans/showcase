@@ -1,0 +1,42 @@
+replicaCount: 3
+
+app:
+    name: vertx-java-server
+
+image:
+    repository: reis/vertx-java-server
+    tag: 0.1.0
+
+config:
+    db:
+        host: 'localhost'
+        name: 'testserver'
+        port: 27000
+    server:
+        port: 8080
+
+secrets:
+    db:
+        username: ''
+        password: ''
+
+service:
+    type: LoadBalancer
+    port: 80
+    targetPort: 8080
+    nodePort: 31000
+
+readinessProbe:
+    failureThreshold: 1
+    initialDelaySeconds: 30
+    periodSeconds: 20
+    successThreshold: 1
+    timeoutSeconds: 5
+
+livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    successThreshold: 1
+
+terminationGracePeriodSeconds: 30

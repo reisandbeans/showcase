@@ -29,15 +29,18 @@ dependencies {
     implementation(Dependencies.vertxCore)
     implementation(Dependencies.vertxRxJava)
     implementation(Dependencies.vertxWeb)
+    implementation(Dependencies.vertxWebClient)
     implementation(project(":lib"))
     testImplementation(TestDependencies.mockitoCore)
+    testImplementation(TestDependencies.mockitoInline)
     testImplementation(TestDependencies.mockitoJunit)
     testImplementation(TestDependencies.vertxJunit)
     testImplementation(TestDependencies.junitJupiter)
 }
 
 tasks.withType<ShadowJar> {
-    archiveClassifier.set("fat")
+    archiveBaseName.set("app")
+    archiveClassifier.set("")
     manifest {
         attributes(mapOf("Main-Verticle" to mainVerticleName))
     }

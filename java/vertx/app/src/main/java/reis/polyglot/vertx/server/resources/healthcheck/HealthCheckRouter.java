@@ -22,7 +22,7 @@ public class HealthCheckRouter implements ResourceHandler {
 
     private Router createHandler(Vertx vertx) {
         Router router = Router.router(vertx);
-        router.post("/ping").handler(controller::ping);
+        router.get("/ping").handler(controller::ping);
 
         return router;
     }
