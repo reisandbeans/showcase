@@ -1,0 +1,25 @@
+# Logs
+npm-debug.log*
+lerna-debug.log
+
+# Coverage directory
+coverage
+
+# Dependency directory
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Build output directory
+dist
+
+# Editors
+.idea
+.vscode
+
+# Typescript
+tsconfig.build.tsbuildinfo
+
+# Others
+.DS_Store

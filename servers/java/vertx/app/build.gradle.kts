@@ -39,7 +39,8 @@ dependencies {
 }
 
 tasks.withType<ShadowJar> {
-    archiveBaseName.set("app")
+    archiveBaseName.
+    set("app")
     archiveClassifier.set("")
     manifest {
         attributes(mapOf("Main-Verticle" to mainVerticleName))
