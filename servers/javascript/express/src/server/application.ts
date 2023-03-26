@@ -2,9 +2,12 @@ import express, { Application } from 'express';
 import locale from 'locale';
 import bodyParser from 'body-parser';
 import { getRouter } from '@api/index';
-import { serverConfig } from './server-config';
+import { serverConfig } from './config/server-config';
+import { ServerConfigVars } from '@server/config/config-vars';
 
-const { distFolderPath } = serverConfig;
+const distFolderPath = serverConfig.get(ServerConfigVars.DistFolderPath);
+const supportedLanguages = serverConfig.get(ServerConfigVars.SupportedLanguages);
+const defaultLanguage = serverConfig.get(ServerConfigVars.DefaultLanguage);
 
 export function buildApp(): Application {
     const app = express();
@@ -25,7 +28,7 @@ function serveStaticFiles(app: Application) {
 function setupMiddleware(app: Application) {
     app.set('view engine', 'html');
     app.set('views', distFolderPath);
-    app.use(locale(serverConfig.supportedLanguages, serverConfig.defaultLanguage));
+    app.use(locale(supportedLanguages, defaultLanguage));
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 }

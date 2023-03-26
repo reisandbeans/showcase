@@ -1,7 +1,8 @@
 import * as http from 'http';
 import gracefulShutdown from 'http-graceful-shutdown';
 import { logger } from '@logger';
-import { serverConfig } from './server-config';
+import { serverConfig } from './config/server-config';
+import { ServerConfigVars } from '@server/config/config-vars';
 
 let execShutdown: () => Promise<void>;
 
@@ -40,7 +41,7 @@ export function registerShutdownHandler(
     logger.info('Registering shutdown handler...');
 
     execShutdown = gracefulShutdown(server, {
-        development: !serverConfig.isProduction,
+        development: !serverConfig.get(ServerConfigVars.IsProduction),
         finally: () => {
             logger.info('Server gracefully closed');
         },

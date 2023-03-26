@@ -1,5 +1,6 @@
-import { serverConfig } from '@server/server-config';
+import { serverConfig } from '@server/config/server-config';
 import { getErrorNameAndMessage } from '@lib/exceptions/error-util';
+import { ServerConfigVars } from '@server/config/config-vars';
 
 export interface ApplicationError {
     details: ErrorDetail[] | null;
@@ -88,7 +89,7 @@ export class ApplicationException extends Error implements ApplicationError {
             statusCode: this.statusCode,
         };
 
-        if (!serverConfig.isProduction) {
+        if (!serverConfig.get(ServerConfigVars.IsProduction)) {
             error.stack = this.stack;
         }
         return error;

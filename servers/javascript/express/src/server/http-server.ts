@@ -1,16 +1,17 @@
 import http from 'http';
 import { Application } from 'express';
 import { logger } from '@logger';
-import { serverConfig } from './server-config';
+import { serverConfig } from './config/server-config';
 import { registerShutdownHandler, ServerWithShutdownHandler } from './shutdown-handler';
+import { ServerConfigVars } from '@server/config/config-vars';
 
 export function startServer(app: Application): Promise<http.Server> {
     const server = http.createServer(app);
-    const { port, useShutdownHandler } = serverConfig;
 
     return new Promise((resolve) => {
+        const port = serverConfig.get(ServerConfigVars.ServerPort);
         server.listen(port, () => {
-            if (useShutdownHandler) {
+            if (serverConfig.get(ServerConfigVars.ServerShutDownHandler)) {
                 registerShutdownHandler(server as ServerWithShutdownHandler);
             }
             logger.info(`Server listening on port ${port}...`);
