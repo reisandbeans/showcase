@@ -77,7 +77,7 @@ export class ApplicationException extends Error implements ApplicationError {
         return ApplicationException.createError(503, customMessage, customName);
     }
 
-    addDetails(...errorDetails: ErrorDetail[]) {
+    addDetails(errorDetails: ErrorDetail[]) {
         this.details.push(...errorDetails);
     }
 
@@ -85,7 +85,7 @@ export class ApplicationException extends Error implements ApplicationError {
         const error: ApplicationError = {
             details: this.details,
             message: this.message,
-            name: this.message,
+            name: this.name,
             statusCode: this.statusCode,
         };
 

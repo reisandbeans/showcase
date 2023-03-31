@@ -1,7 +1,6 @@
-import { ErrorObject, Options as AjvOptions } from 'ajv';
+import { Options as AjvOptions } from 'ajv';
 import { ErrorMessageOptions } from 'ajv-errors';
 import { FormatsPluginOptions } from 'ajv-formats';
-import { ErrorAdapter } from '@lib/exceptions/error-adapter';
 import { ApplicationError } from '@lib/exceptions/application-exception';
 
 export interface JsonValidatorOptions<T = ApplicationError> {
@@ -9,5 +8,4 @@ export interface JsonValidatorOptions<T = ApplicationError> {
     ajvFormatOptions?: FormatsPluginOptions;
     ajvKeywords?: string[];
     ajvOptions?: AjvOptions;
-    errorAdapter?: ErrorAdapter<Partial<ErrorObject>[], T>;
 }

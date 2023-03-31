@@ -1,9 +1,7 @@
-import { cloneDeep, flatten, forOwn, identity, isFunction, isObject, isString } from 'lodash';
-import { ErrorAdapter } from '../exceptions/error-adapter';
+import { cloneDeep, flatten, forOwn, isFunction, isObject, isString } from 'lodash';
 import Ajv, {
     AnySchema,
     AsyncValidateFunction,
-    ErrorObject,
     JSONSchemaType,
     KeywordDefinition,
     Format,
@@ -16,6 +14,7 @@ import addErrors from 'ajv-errors';
 import { AnyValidateFunction } from 'ajv/dist/types';
 import { JsonValidatorOptions } from './json-validator-options';
 import { ApplicationException } from '@lib/exceptions/application-exception';
+import { ajvErrorAdapter } from '@lib/exceptions/error-adapters/ajv-error-adapter';
 
 export const defaultAjvOptions: AjvOptions = {
     $data: true,
@@ -38,13 +37,11 @@ export type SchemaDictionary =  { [schemaName: string]: JSONSchemaType<any> | An
 
 export class JsonValidator {
     private readonly ajv: Ajv;
-    private readonly errorAdapter: ErrorAdapter<Partial<ErrorObject>[]>;
     private readonly validators: { [schemaName: string]: AnyValidateFunction };
 
     constructor(options: JsonValidatorOptions = {}) {
         const ajvOptions = Object.assign({}, defaultAjvOptions, options.ajvOptions);
         this.ajv = new Ajv(ajvOptions);
-        this.errorAdapter = options.errorAdapter || identity;
 
         addKeywords(this.ajv, [
             ...defaultAjvKeywords,
@@ -105,7 +102,7 @@ export class JsonValidator {
             await validator.bind(context)(data);
             return data;
         } catch (error) {
-            throw this.errorAdapter((error as ValidationError).errors);
+            throw ajvErrorAdapter((error as ValidationError).errors);
         }
     }
 
@@ -113,7 +110,7 @@ export class JsonValidator {
         const valid = validator.call(context, data);
         if (!valid) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            throw this.errorAdapter(validator.errors!);
+            throw ajvErrorAdapter(validator.errors!);
         }
         return data;
     }

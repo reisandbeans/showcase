@@ -27,6 +27,11 @@
             "@logger": ["src/lib/logger.ts"],
             "@server/*": ["src/server/*"],
         },
+        "plugins": [
+            {
+                "transform": "typescript-transform-paths"
+            },
+        ],
         "resolveJsonModule": true,
         "skipLibCheck": true,
         "sourceMap": true,

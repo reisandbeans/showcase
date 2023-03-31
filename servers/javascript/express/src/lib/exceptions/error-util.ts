@@ -1,4 +1,4 @@
-import {ErrorName} from '@lib/exceptions/error-name';
+import { ErrorName } from '@lib/exceptions/error-name';
 
 const defaultErrorMessages: Record<number, string> = {
     400: 'Invalid request',

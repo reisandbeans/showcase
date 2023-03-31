@@ -26,7 +26,8 @@ function cleanup(server: ServerWithShutdownHandler, delay: number = DEFAULT_DELA
 }
 
 function handleError(server: ServerWithShutdownHandler, error: any) {
-    logger.error('Uncaught exception in server').error(error);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    logger.error('Uncaught exception in server', error);
     // Flag set here to prevent successive uncaught exceptions to trigger the shutdown again
     if (!server.isShuttingDown) {
         server.isShuttingDown = true;

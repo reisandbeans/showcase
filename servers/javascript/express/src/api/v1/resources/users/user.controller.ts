@@ -3,5 +3,5 @@ import { SuccessResponse } from '@api/v1/lib/responses/success-response';
 
 export function login(req: Request, res: Response) {
     // TODO
-    SuccessResponse.ok(null);
+    SuccessResponse.ok(null).send(res);
 }
